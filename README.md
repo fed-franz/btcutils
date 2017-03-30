@@ -11,7 +11,7 @@ Requirements:
 - Bitcoin-Core: https://bitcoin.org/en/download
 - 'jq' software
 
-USAGE:
+___ USAGE ___
 Parameters:
 - NET = {main,test} | Default: main
 - BCPATH = Bitcoin-Core folder | Default: /opt/bitcoin
