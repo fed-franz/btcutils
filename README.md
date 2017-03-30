@@ -10,3 +10,10 @@ It gives status feedback until the daemon is upo.
 Requirements:
 - Bitcoin-Core: https://bitcoin.org/en/download
 - 'jq' software
+
+USAGE:
+Parameters:
+- NET = {main,test} | Default: main
+- BCPATH = Bitcoin-Core folder | Default: /opt/bitcoin
+
+Example: start-bitcoind test /path/to/bitoin-folder
