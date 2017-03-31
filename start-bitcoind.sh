@@ -1,7 +1,7 @@
 #!/bin/sh
 #Parameters:
 # NET = {main,test} | Default: main
-# BCPATH = Bitcoin-Core folder
+# BCPATH = Bitcoin-Core folder | Default: /opt/bitcoin
 
 #Check 'jq' is installed
 #This script currently makes use of jq to parse the JSON object return by bitcoin-cli
@@ -76,7 +76,6 @@ fi
 BC_CURRENT=$(echo $BC_STATUS | jq '.blocks')
 BC_TOTAL=$(echo $BC_STATUS | jq '.headers')
 
-# if [ $BC_CURRENT -lt $BC_TOTAL ]; then echo "Downloading blocks..."; fi
 while [ $BC_CURRENT -lt $BC_TOTAL ]; do
   echo "Downloading blocks... ($BC_CURRENT/$BC_TOTAL)"
   sleep 5
