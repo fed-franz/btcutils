@@ -58,6 +58,7 @@ echo "Running '$BCPATH/bin/bitcoind $NETPAR &'"
 $BCPATH/bin/bitcoind $NETPAR &
 BCD=$!
 
+#Wait for block headers loading and verification
 echo -n "Loading..."
 sleep 5
 $BCPATH/bin/bitcoin-cli $NETPAR getblockchaininfo > /dev/null 2>&1
@@ -76,12 +77,12 @@ fi
 BC_CURRENT=$(echo $BC_STATUS | jq '.blocks')
 BC_TOTAL=$(echo $BC_STATUS | jq '.headers')
 
+# Wait for bitcoind to download blocks
 while [ $BC_CURRENT -lt $BC_TOTAL ]; do
   echo "Downloading blocks... ($BC_CURRENT/$BC_TOTAL)"
   sleep 5
   BC_STATUS=$($BCPATH/bin/bitcoin-cli $NETPAR getblockchaininfo)
   BC_CURRENT=$(echo $BC_STATUS | jq '.blocks')
-  BC_TOTAL=$(echo $BC_STATUS | jq '.headers')
 done
 
 echo "Done. Bitcoind is running and up-to-date (PID $BCD)"
