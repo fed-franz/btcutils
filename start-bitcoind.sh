@@ -22,35 +22,28 @@ function ctrl_c() {
   exit 0
 }
 
-#Parse NET
-if [[ $# -gt 0 ]] ; then
-  case $1 in
-    main)
-    NET='mainnet'
-    ;;
-    test)
-    NET='testnet'
-    NETPAR='-testnet'
-    ;;
-    *)
-    echo "WARNING: Unknown network option. Selecting default network (Mainnet)"
-    NET='mainnet'
-  esac
-fi
+#Defaults
+BCPATH=/opt/bitcoin/
 
-#Parse BCPATH
-if [[ $# -gt 1 ]]; then
-  if [ ! -d "$2" ]; then
-    echo "ERROR: Bitcoin-Core path does not exist. Exiting..."
-    exit 1
-  fi
-  if [ ! -f "$2/bin/bitcoind" ]; then
-    echo "ERROR: Bitcoin-Core path is incorrect. Exiting..."
-    exit 1
-  fi
-  BCPATH="$2"
-else BCPATH=/opt/bitcoin/
-fi
+#Parse Arguments
+OPTIND=1
+while getopts "tp:" opt; do
+    case "$opt" in
+    t)  NETPAR='-testnet'
+        ;;
+    p)
+        if [[ ! -d "$OPTARG" || ! -f "$OPTARG/bin/bitcoind" ]]; then
+          echo "ERROR: Bitcoin-Core path is incorrect. Exiting..."
+          exit 1
+        fi
+        BCPATH=$OPTARG
+        ;;
+    esac
+done
+
+shift $((OPTIND-1))
+[ "$1" = "--" ] && shift
+if [ ! -z "$@" ]; then echo "WARNING: Unrecognized arguments \"$@\" were ignored"; fi
 
 echo "Running '$BCPATH/bin/bitcoind $NETPAR &'"
 
@@ -58,7 +51,7 @@ echo "Running '$BCPATH/bin/bitcoind $NETPAR &'"
 $BCPATH/bin/bitcoind $NETPAR &
 BCD=$!
 
-#Wait for block headers loading and verification
+#Wait for
 echo -n "Loading..."
 sleep 5
 $BCPATH/bin/bitcoin-cli $NETPAR getblockchaininfo > /dev/null 2>&1
@@ -77,12 +70,12 @@ fi
 BC_CURRENT=$(echo $BC_STATUS | jq '.blocks')
 BC_TOTAL=$(echo $BC_STATUS | jq '.headers')
 
-# Wait for bitcoind to download blocks
 while [ $BC_CURRENT -lt $BC_TOTAL ]; do
   echo "Downloading blocks... ($BC_CURRENT/$BC_TOTAL)"
   sleep 5
   BC_STATUS=$($BCPATH/bin/bitcoin-cli $NETPAR getblockchaininfo)
   BC_CURRENT=$(echo $BC_STATUS | jq '.blocks')
+  BC_TOTAL=$(echo $BC_STATUS | jq '.headers')
 done
 
 echo "Done. Bitcoind is running and up-to-date (PID $BCD)"
