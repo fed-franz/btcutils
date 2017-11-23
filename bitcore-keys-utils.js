@@ -19,6 +19,11 @@ function createBTCKey(){
   return new bitcore.PrivateKey().toWIF();
 }
 
+/* Get the public key from private key or public key hex-string */
+function getPubKey(privKey){
+  return new bitcore.PublicKey(privKey)
+}
+
 /* Returns the address for the key */
 function getBTCAddr(privKey, BTCnet){
   var pk = new bitcore.PrivateKey(privKey)
