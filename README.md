@@ -21,6 +21,9 @@ Parameters:
 Example: start-bitcoind test /path/to/bitoin-folder
 
 # btc-addr-utils
+Requirements:
+- 'bitcore-lib': npm install bitcore-lib
+
 Library for Bitcoin addresses management.
 It provides the following functions:
 - createBTCKey: create a new Bitcoin private key
