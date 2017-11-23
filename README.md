@@ -21,11 +21,12 @@ Parameters:
 Example: start-bitcoind test /path/to/bitoin-folder
 
 # btc-addr-utils
+Library for Bitcoin addresses management.
+
 Requirements:
 - 'bitcore-lib': npm install bitcore-lib
 
-Library for Bitcoin addresses management.
-It provides the following functions:
+Functions:
 - createBTCKey: create a new Bitcoin private key
 - getBTCNetwork(privKey, net): it returns the Mainnet/Testnet address corresponding to a private key
 - getBTCAddr(addr): determine if the address belongs to the Mainnet or the Testnet network
