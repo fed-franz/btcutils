@@ -1,5 +1,5 @@
-# blockchain-code
-Scripts and tools for Bitcoin, Colored Coins and other Bitcoin-based blockchains
+# btc-utils
+Scripts and tools for Bitcoin
 
 # start-bitcoind
 Script for the Bitcoin-Core client. It starts the bitcoind daemon and wait until it is fully initialized.
@@ -19,3 +19,14 @@ Parameters:
 - BCPATH = Bitcoin-Core folder | Default: /opt/bitcoin
 
 Example: start-bitcoind test /path/to/bitoin-folder
+
+# btc-addr-utils
+Library for Bitcoin addresses management.
+It provides the following functions:
+- createBTCKey: create a new Bitcoin private key
+- getBTCNetwork(privKey, net): it returns the Mainnet/Testnet address corresponding to a private key
+- getBTCAddr(addr): determine if the address belongs to the Mainnet or the Testnet network
+- isValidAddr(addr): check if the address is a valid Bitcoin address
+- isValidMainnetAddr: check if the address is a valid Mainnet address
+- isValidTestnetAddr: check if the address is a valid Testnet address
+

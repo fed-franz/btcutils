@@ -2,12 +2,16 @@
 'use strict';
 
 const bitcore = require('bitcore-lib')
+const Mainnet = bitcore.Networks.mainnet
+const Testnet = bitcore.Networks.testnet
 
 module.exports = {
-  getBTCNetwork: getBTCNetwork,
   createBTCKey: createBTCKey,
+  getBTCNetwork: getBTCNetwork,
   getBTCAddr: getBTCAddr,
   isValidAddr: isValidAddr,
+  isValidMainnetAddr: isValidMainnetAddr,
+  isValidTestnetAddr: isValidTestnetAddr
 };
 
 /* Create new Bitcoin address */
@@ -35,10 +39,9 @@ function isValidAddr(addr){
 
 /* Check if 'addr' is a valid Mainnet address for 'net' network*/
 function isValidMainnetAddr(addr){
-  return bitcore.Address.isValid(addr, bitcore.Networks.mainnet)
+  return bitcore.Address.isValid(addr, Mainnet)
 
 /* Check if 'addr' is a valid Testnet address for 'net' network*/
 function isValidTestnetAddr(addr){
-  return bitcore.Address.isValid(addr, bitcore.Networks.testnet)
-
+  return bitcore.Address.isValid(addr, Testnet)
 }
