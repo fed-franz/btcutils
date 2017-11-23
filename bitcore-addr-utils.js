@@ -1,15 +1,13 @@
-/* bitcore-utils.js */
+/* bitcore-addr-utils.js */
 'use strict';
 
 const bitcore = require('bitcore-lib')
-const explorers = require('bitcore-explorers')
 
 module.exports = {
   getBTCNetwork: getBTCNetwork,
   createBTCKey: createBTCKey,
   getBTCAddr: getBTCAddr,
   isValidAddr: isValidAddr,
-  getBTCAddrBalance: getBTCAddrBalance,
 };
 
 /* Create new Bitcoin address */
@@ -29,29 +27,18 @@ function getBTCNetwork(addr){
   return addrObj.network
 }
 
-/* Check if 'addr' is a valid address for 'net' network*/
-function isValidAddr(addr, net){
-  return bitcore.Address.isValid(addr, net)
-}
-
 /* Check if 'addr' is a valid Bitcoin address */
-function isValidBTCAddr(addr){
+function isValidAddr(addr){
   var net = getBTCNetwork(addr)
   return bitcore.Address.isValid(addr, net)
 }
 
-/* Returns the total spendable satoshis for 'addr' */
-function getBTCAddrBalance(addr, callback){
-  var network = getBTCNetwork(addr)
-  var insight = new explorers.Insight(network)
+/* Check if 'addr' is a valid Mainnet address for 'net' network*/
+function isValidMainnetAddr(addr){
+  return bitcore.Address.isValid(addr, bitcore.Networks.mainnet)
 
-  insight.getUnspentUtxos(addr, function(err, utxos){
-    if(err) return callback(err)
+/* Check if 'addr' is a valid Testnet address for 'net' network*/
+function isValidTestnetAddr(addr){
+  return bitcore.Address.isValid(addr, bitcore.Networks.testnet)
 
-    var balance = 0
-    for(var i in utxos)
-      balance += utxos[i].satoshis
-
-    return callback(null, balance)
-  });
 }
