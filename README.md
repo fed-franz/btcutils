@@ -27,6 +27,6 @@ It provides the following functions:
 - getBTCNetwork(privKey, net): it returns the Mainnet/Testnet address corresponding to a private key
 - getBTCAddr(addr): determine if the address belongs to the Mainnet or the Testnet network
 - isValidAddr(addr): check if the address is a valid Bitcoin address
-- isValidMainnetAddr: check if the address is a valid Mainnet address
-- isValidTestnetAddr: check if the address is a valid Testnet address
+- isValidMainnetAddr(addr): check if the address is a valid Mainnet address
+- isValidTestnetAddr(addr): check if the address is a valid Testnet address
 
