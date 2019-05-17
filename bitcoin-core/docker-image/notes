@@ -14,3 +14,8 @@ RUN apt-get install --yes iputils-ping net-tools dnsutils wget bc
 MAN:
 #Argument 'btcnet'; default is "" (mainnet).
 #To run node in testnet or regtest mode, use 'docker run btcnode $btcnet'
+
+
+INIT.SH
+#TODO Use argument parser
+#TODO Get bitcoind arguments
