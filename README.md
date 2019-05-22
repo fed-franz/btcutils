@@ -34,3 +34,16 @@ Functions:
 - isValidMainnetAddr(addr): check if the address is a valid Mainnet address
 - isValidTestnetAddr(addr): check if the address is a valid Testnet address
 
+# btc-docker
+Bitcoin Core container
+
+Requirements:
+- 'docker'
+
+___ USAGE ___
+docker build -t "btcnode" .
+docker run btcnode --name btcnode BITCOIND_OPTIONS
+  
+Recommended options:
+- -testnet
+- -prune=550
