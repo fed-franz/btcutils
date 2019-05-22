@@ -41,7 +41,8 @@ Requirements:
 - 'docker'
 
 ___ USAGE ___
-docker build -t "btcnode" .
+
+docker build -t "btcnode" .  
 docker run btcnode --name btcnode BITCOIND_OPTIONS
   
 Recommended options:
