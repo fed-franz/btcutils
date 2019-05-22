@@ -18,7 +18,7 @@ Parameters:
 - NET = {main,test} | Default: main
 - BCPATH = Bitcoin-Core folder | Default: /opt/bitcoin
 
-Example: start-bitcoind test /path/to/bitoin-folder
+Example: start-bitcoind test /path/to/bitcoin-folder
 
 # btc-addr-utils
 Library for Bitcoin addresses management.
